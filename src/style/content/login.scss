@@ -1,0 +1,38 @@
+$baseColor: #409EFF;
+
+body {
+    background: url(/static/image/background.png) no-repeat;
+    background-size: 100%;
+    h2 {
+        font-weight: 400;
+        font-size: 36px;
+        color: $baseColor;
+        letter-spacing: -1.02px;
+    }
+    h4 {
+        font-weight: 200;
+        margin-top: 5px;
+        font-size: 14px;
+        color:#797979;
+        letter-spacing: -0.4px; 
+    }
+} 
+
+.login-box {
+    width: 260px;
+    height: 280px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -160px 0 0 -130px;
+    .form {
+        width: 256px;
+        position: absolute;
+        left: 50%;
+        margin-left: -128px;
+    }
+    .login-btn {
+        width: 100%;
+    }
+}
+
