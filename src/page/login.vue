@@ -57,11 +57,20 @@
           login: this.form.loginName.replace(/(^\s*)|(\s*$)/g, ''),
           password: this.$utils.md5(this.form.password.replace(/(^\s*)|(\s*$)/g, ''))
         }, r => {
-          console.log(r)
-        })
-        // this.$api.get('smartshoes/notice/v1.2.0/noticeViewList', null, r => {
-        //   console.log(r)
-        // })
+          this.toLogin2()
+        }, r => {
+          this.$utils.pop(r.errMsg)
+        }, 0)
+      },
+      toLogin2 () { // 当第一次成功才可以进行第二次
+        this.$api.post('competence/loginModuleMeta', {
+          login: this.form.loginName.replace(/(^\s*)|(\s*$)/g, '')
+        }, r => {
+          // var module = r.modulelist;
+          // var flag = 0
+        }, r => {
+          this.$utils.pop(r.errMsg)
+        }, 1)
       }
     }
   }

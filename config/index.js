@@ -15,6 +15,11 @@ module.exports = {
         target: 'http://uat.smartshoes.317hu.com', // 你接口的域名
         secure: false,
         changeOrigin: true,
+      },
+      '/smartShoes-web-pc/**': {
+        target: 'http://uat.smartshoes.317hu.com', // 你接口的域名
+        secure: false,
+        changeOrigin: true,
       }
     },
 
