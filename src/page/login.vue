@@ -44,7 +44,24 @@
     },
     methods: {
       submitForm (formName) { // 提交登录表单
-
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.toLogin1()
+          } else {
+            return false
+          }
+        })
+      },
+      toLogin1 () { // 第一次登录
+        this.$api.post('smartshoes/user/login', {
+          login: this.form.loginName.replace(/(^\s*)|(\s*$)/g, ''),
+          password: this.$utils.md5(this.form.password.replace(/(^\s*)|(\s*$)/g, ''))
+        }, r => {
+          console.log(r)
+        })
+        // this.$api.get('smartshoes/notice/v1.2.0/noticeViewList', null, r => {
+        //   console.log(r)
+        // })
       }
     }
   }
