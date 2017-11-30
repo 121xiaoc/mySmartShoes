@@ -11,7 +11,8 @@
           <el-input v-model="form.password" placeholder="密码" type="password"></el-input>
         </el-form-item>
         <el-form-item>
-           <el-button type="primary" class = "login-btn" @click="submitForm('form')">登录</el-button>
+           <el-button type="primary" class = "login-btn" @click="submitForm('form')" 
+             :loading="isButtonLoading">登录</el-button>
         </el-form-item>  
       </el-form>
     </div>
@@ -23,6 +24,7 @@
 </style>
 
 <script>
+  import store from 'store'
   export default {
     data () {
       return {
@@ -30,6 +32,7 @@
           loginName: '', // 登录手机号码
           password: '' // 登录密码
         },
+        isButtonLoading: false, // 登录按钮是否在加载状态
         rules: { // 表单验证
           loginName: [
             {required: true, message: '请输入手机号', trigger: 'blur'},
@@ -46,6 +49,7 @@
       submitForm (formName) { // 提交登录表单
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            this.isButtonLoading = true
             this.toLogin1()
           } else {
             return false
@@ -59,6 +63,7 @@
         }, r => {
           this.toLogin2()
         }, r => {
+          this.isButtonLoading = false
           this.$utils.pop(r.errMsg)
         }, 0)
       },
@@ -66,9 +71,17 @@
         this.$api.post('competence/loginModuleMeta', {
           login: this.form.loginName.replace(/(^\s*)|(\s*$)/g, '')
         }, r => {
-          // var module = r.modulelist;
-          // var flag = 0
+          var module = r.modulelist
+          if (module === null || module.length === 0) {
+            this.isButtonLoading = false
+            this.$utils.pop('此账号没有权限登录系统，请联系管理员申请权限')
+          } else {
+            window.localStorage.power = JSON.stringify(module)
+            store.set('zhooson_login_token', this.form)
+            this.$router.push('/home') // 跳转到home界面
+          }
         }, r => {
+          this.isButtonLoading = false
           this.$utils.pop(r.errMsg)
         }, 1)
       }

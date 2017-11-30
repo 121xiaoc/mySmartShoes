@@ -1,8 +1,12 @@
 $baseColor: #409EFF;
 
-body {
+.main {
     background: url(/static/image/background.png);
     background-size: 100%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
     h2 {
         font-weight: 400;
         font-size: 36px;
@@ -25,6 +29,7 @@ body {
     left: 50%;
     top: 50%;
     margin: -160px 0 0 -130px;
+    text-align: center;
     .form {
         width: 256px;
         position: absolute;
@@ -33,6 +38,7 @@ body {
     }
     .login-btn {
         width: 100%;
+        
     }
 }
 
